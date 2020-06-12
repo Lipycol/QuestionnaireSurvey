@@ -1,0 +1,227 @@
+$blue: #409EFF;
+.el-header {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 155px;
+  font-size: 35px;
+  align-items: center;
+  color: #262626;
+  box-shadow:inset 0px 1px 1px -1px #000,
+             inset 0px -1px 1px -1px #000; 
+}
+
+.a {
+  font-size: 1.1em;
+}
+.btn-w {
+  position: relative;
+  right: 130px;
+}
+.k {
+  height: 550px;
+  background-color: #f7f7f7;
+  border-right: solid;
+  border-color: #e6e6e6;
+  border-width: 1px;
+}
+.el-aside {
+  height: 100%;
+  text-align: left;
+}
+.icon {
+  height: 45px;
+  position: relative;
+  right: 400px;
+}
+.icon1 {
+  height: 40px;
+  position: relative;
+  left: 68px;
+}
+.clock{
+  text-align:center;
+  margin-top:10px;
+}
+
+.clock1{
+  text-align:center;
+  margin-top:25px;
+}
+.left-aside {
+  margin-top: 57px;
+  background-color: #f7f7f7;
+}
+.el-page-header{
+  &:hover {
+    color: $blue;
+  }
+}
+.item {
+  height: 80px;
+  line-height: 80px;
+}
+.fill-container {
+  width: 106rem;
+  margin: 5px auto;
+  padding: 5rem;
+  color: #666;
+  background-color: #fff;
+  border-radius: .4rem;
+  box-shadow: 0 0 1rem #aaa;
+  h2 {
+    margin-bottom: 3rem;
+    text-align: center;
+    font-size: 2rem;
+    color: #555;
+  }
+  .back {
+    font-size: 1.6rem;
+    cursor: pointer;
+    &:hover {
+      color: $blue;
+    }
+  }
+  .content {
+    padding: 3rem;
+    border: {
+      top: .2rem solid #ccc;
+      bottom: .2rem solid #ccc;
+    }
+  }
+  .content-item{
+    padding: 1.5rem 2rem;
+    &:hover {
+      background-color: #F0F8FF;
+    }
+    > {
+      p {
+        margin: {
+          top: 1.5rem;
+          bottom: 1.5rem;
+        }
+      }
+      textarea {
+        width: 35rem;
+        height: 15rem;
+        margin-left: 2.5rem;
+      }
+    }
+    .qs-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #333;
+    }
+    .option {
+      margin-left: 2.5rem;
+    }
+  }
+  footer {
+    height: 6rem;
+    margin-top: 3rem;
+    text-align: center;
+    line-height: 6rem;
+    .submit {
+      width: 10rem;
+      height: 3rem;
+      padding: {
+        top: .3rem;
+        bottom: .3rem;
+      }
+      line-height: 100%;
+      color: #fff;
+      border: .1rem solid #1E90FF;
+      border-radius: .2rem;
+      background-color: #1E90FF;
+      cursor: pointer;
+      &:hover {
+        box-shadow: 0 0 5px #1E90FF;
+      }
+    }
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+  }
+  .fade-enter, .fade-leave-active {
+    opacity: 0
+  }
+  .dialog {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(85, 85, 85, .7);
+    .submit-dialog {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 40rem;
+      height: 20rem;
+      transform: translateX(-50%) translateY(-50%);
+      border-radius: .5rem;
+      box-shadow: 0 0 5px #555;
+      background-color: #fff;
+    }
+    header {
+      height: 5rem;
+      padding: {
+        left: 3rem;
+        right: 3rem;
+      }
+      line-height: 5rem;
+      border-radius: .5rem;
+      background-color: #f7f7f7;
+      span:nth-of-type(1) {
+        font-weight: 700;
+      }
+      .close-btn {
+        position: absolute;
+        right: 3rem;
+        color: #bbb;
+        cursor: pointer;
+        &:hover {
+          color: $blue;
+        }
+      }
+    }
+    .submit-dialog p {
+      margin-top: 3rem;
+      margin-left: 3rem;
+    }
+    .btn-box {
+      button {
+        width: 7rem;
+        height: 2.5rem;
+        padding: {
+          top: .3rem;
+          bottom: .3rem;
+        }
+        line-height: 100%;
+        color: #777;
+        border: 1px solid #555;
+        border-radius: .2rem;
+        background-color: #fff;
+        cursor: pointer;
+        &:hover {
+          box-shadow: 0 0 5px #bbb;
+        }
+      }
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 6rem;
+      text-align: center;
+      line-height: 6rem;
+      .yes {
+        margin-right: 1rem;
+        color: #fff;
+        background-color: $blue;
+        border: 1px solid $blue;
+        &:hover {
+          box-shadow: 0 0 5px $blue;
+        }
+      }
+    }
+  }
+}
