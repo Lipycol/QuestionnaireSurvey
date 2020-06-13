@@ -3,15 +3,14 @@
     <!-- 头部区域 -->
     <el-header>
       <el-button type="primary" class="btn-w" @click="$router.push({name: 'Hall'})">问卷大厅</el-button>
-       <img src="../static/icon.png" alt class="icon">
+      <img src="../static/icon.png" alt class="icon">
       <div>
         <el-dropdown>
-          <el-button type="text" style="color:#333;font-size:16px;position:relative;bottom:5px;font-size:18px;">
-            {{name}}
+          <el-button type="text" style="color:#333;font-size:16px;position:relative;bottom:5px;font-size:18px;">{{name}}
             <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
           </el-button>
           <el-dropdown-menu slot="dropdown">
-             <el-dropdown-item>
+            <el-dropdown-item>
               <i class="el-icon-s-custom" @click="$router.push({name: 'Alter'})">&nbsp;&nbsp;信息修改</i>
             </el-dropdown-item>
             <el-dropdown-item>
@@ -24,13 +23,13 @@
     <!-- 页面主体区域 -->
     <el-container>
       <!-- 侧边栏区域 -->
-        <el-aside width="140px">
+      <el-aside width="140px">
         <el-menu class="left-aside"> 
           <el-menu-item index="1" class="item" @click="$router.push({ name: 'List'})">
             <i class="el-icon-document"></i>
             <span slot="title" style="font-size: 18px" >问卷清单</span>
           </el-menu-item>
-          <el-menu-item index="2" class="item" @click="$router.push({name: 'New', params: {num: 0}})">
+          <el-menu-item index="2" class="item" @click="$router.push({name: 'Edit', params: {num: 0}})">
             <i class="el-icon-circle-plus-outline"></i>
             <span slot="title"  style="font-size: 18px">新建问卷</span>
           </el-menu-item>
@@ -43,55 +42,49 @@
       </el-aside>
       <!-- 右边内容实体 -->
       <el-main>
-    <div class="fill-container">
-    <div class="fill" v-if="!isError">
-      <el-page-header @back="back"></el-page-header>
-      <h2>{{qsItem.title}}</h2>
-      <div class="content">
-        <div class="content-item" v-for="(qs, index) in qsItem.question" v-bind:key='index'>
-          <p class="qs-title">
-            {{qs.num}}&nbsp;{{qs.title}}&nbsp;{{getMsg(qs)}}
-          </p>
-          <p v-for="option in qs.options" v-bind:key="option" class="option">
-            <label>
-              <input type="radio" :name="`${qs.num}-${qs.title}`" v-model="requiredItem[qs.num]" v-if="qs.type === 'radio'" :value="option">
-              <input type="checkbox" :name="`${qs.num}-${qs.title}`" v-model="requiredItem[qs.num]" v-if="qs.type === 'checkbox'" :value="option">{{option}}
-            </label>
-          </p>
-          <textarea v-if="qs.type === 'textarea'" v-model="requiredItem[qs.num]"></textarea>
-          
-        </div>
-      </div>
-      <transition name="fade">
-        <div class="dialog" v-if="showDialog">
-          <div class="submit-dialog" v-if="submitError">
-            <header>
-              <span>提示</span>
-              <span class="close-btn" @click="showDialog = false">X</span>
-            </header>
-            <p>{{info}}</p>
-            <div class="btn-box">
-              <button class="yes" @click="showDialog = false">确定</button>
-              <button @click="showDialog = false">取消</button>
+        <div class="fill-container">
+          <div class="fill">
+            <el-page-header @back="back"></el-page-header>
+            <h2>{{qsItem.title}}</h2>
+            <div class="content">
+              <div class="content-item" v-for="(qs, index) in qsItem.question" v-bind:key='index'>
+                <p class="qs-title">{{qs.num}}&nbsp;{{qs.title}}&nbsp;{{getMsg(qs)}}</p>
+                <p v-for="option in qs.options" v-bind:key="option" class="option">
+                  <label>
+                    <input type="radio" :name="`${qs.num}-${qs.title}`" v-model="requiredItem[qs.num]" v-if="qs.type === 'radio'" :value="option">
+                    <input type="checkbox" :name="`${qs.num}-${qs.title}`" v-model="requiredItem[qs.num]" v-if="qs.type === 'checkbox'" :value="option">{{option}}
+                  </label>
+                </p>
+                <textarea v-if="qs.type === 'textarea'" v-model="requiredItem[qs.num]"></textarea>
+              </div>
             </div>
-          </div>
-          <div class="submit-dialog" v-else>
-            <header>
-              <span>提示</span>
-              <span class="close-btn" @click="showDialog = false">X</span>
-            </header>
-            <p>{{info}}</p>
+            <transition name="fade">
+              <div class="dialog" v-if="showDialog">
+                <div class="submit-dialog" v-if="submitError">
+                  <header>
+                    <span>提示</span>
+                    <span class="close-btn" @click="showDialog = false">X</span>
+                  </header>
+                  <p>{{info}}</p>
+                  <div class="btn-box">
+                    <button class="yes" @click="showDialog = false">确定</button>
+                    <button @click="showDialog = false">取消</button>
+                  </div>
+                </div>
+                <div class="submit-dialog" v-else>
+                  <header>
+                    <span>提示</span>
+                    <span class="close-btn" @click="showDialog = false">X</span>
+                  </header>
+                  <p>{{info}}</p>
+                </div>
+              </div>
+            </transition>  
+            <footer v-if="findtype == 0">
+              <button @click="submit" class="submit">提交</button>
+            </footer>
           </div>
         </div>
-      </transition>  
-      <footer v-if="findtype == 0">
-        <button @click="submit" class="submit">提交</button>
-      </footer>
-    </div>
-    <div class="error" v-else>
-      404 Not Found
-    </div>
-  </div>
       </el-main>
     </el-container>
   </el-container>
@@ -99,6 +92,7 @@
 
 <script>
 import userstorage from '../userstore.js'
+
   export default {
     name: 'qsFill',
     data() {
@@ -106,7 +100,6 @@ import userstorage from '../userstore.js'
         qsitem: [],
         qsItem: {},
         qsList: [],
-        isError: false,
         showDialog: false,
         info: '',
         submitError: false,
@@ -124,7 +117,7 @@ import userstorage from '../userstore.js'
     },
     methods: {
       fetchData() {
-      this.$ajax({
+        this.$ajax({
           method: 'post',
           url: 'https://afhtvr.toutiao15.com/info_userId_num',
           data: {
@@ -132,26 +125,22 @@ import userstorage from '../userstore.js'
             findtype: this.findtype,
             num: this.$route.params.num
           }
-          }).then((response) =>{
+        }).then((response) => {
           this.qsitem = response.data.res
           this.qstitle = response.data.title
-          for (let i = 0; i < this.qsitem.length; i++) 
-          {
-              if (this.qsitem[i][0].QuestionType !== 'textarea')
-              {
-                  this.qsitem[i][1] = this.qsitem[i][1].split(',')
-              }
-              else
-              {
-                this.qsitem[i][1] = null
-              }
+          for (let i = 0; i < this.qsitem.length; i++) {
+            if (this.qsitem[i][0].QuestionType !== 'textarea') {
+              this.qsitem[i][1] = this.qsitem[i][1].split(',')
+            }
+            else {
+              this.qsitem[i][1] = null
+            }
           }
 
           let item = {}
           item.num = this.$route.params.num
           item.question = []
-          for (let i = 0; i < this.qsitem.length; i++)
-          {
+          for (let i = 0; i < this.qsitem.length; i++) {
             item.question.push({
               'num': this.qsitem[i][0].QuestionNum, 
               'title': this.qsitem[i][0].Question, 
@@ -165,39 +154,34 @@ import userstorage from '../userstore.js'
           item.state      = response.data.status
           item.checked    = false
           this.qsItem = item
-          console.log('2')
           this.qsItem.question.forEach( item => {
-              if (item.type == 'checkbox') {
-                console.log('1')
-                this.requiredItem[item.num] = []
-              } else {
-                console.log('3')
-                this.requiredItem[item.num] = ''
-              }
-
-        } )
-                   
-      })
+            if (item.type == 'checkbox') {
+              this.requiredItem[item.num] = []
+            } 
+            else {
+              this.requiredItem[item.num] = ''
+            }
+          } )             
+        })
       },
       getMsg(item) {
         let msg = ''
         if (item.type === 'radio') {
           msg = '(单选题)'
-        } else if (item.type === 'checkbox') {
+        } 
+        else if (item.type === 'checkbox') {
           msg = '(多选题)'
-        } else {
+        } 
+        else {
           msg = '(文本题)'
         }
-
         return item.isNeed ? `${msg} *` : msg
       },
-      back (){
-        if (this.findtype == 1)
-        {
+      back () {
+        if (this.findtype == 1) {
           this.$router.push({ name: 'Bin' })
         }
-        else
-        {
+        else {
           this.$router.push({ name: 'List' })
         }
       },
@@ -216,49 +200,45 @@ import userstorage from '../userstore.js'
                 uid: this.uid,//用户id
                 num: this.$route.params.num,//问卷序号
                 answer: this.requiredItem,//所选选项和答案
-               }
+              }
             }).then((response) =>{
               console.log(response.data.res)
-              if (response.data.res == "success")
-              {
-              this.showDialog = true
-              this.submitError = false
-              this.info = '提交成功!'
-              setTimeout(() => {
-                this.showDialog = false
-              }, 500)
-              setTimeout(() => {
-                this.$router.push({name: 'List'})
-              }, 1500)
-              }
-              else if(response.data.res == '6')
-              {
+              if (response.data.res == "success") {
                 this.showDialog = true
-                this.submitError = true
-                this.info = '提交失败!已到截止时间'
+                this.submitError = false
+                this.info = '提交成功!'
                 setTimeout(() => {
-                this.showDialog = false
+                  this.showDialog = false
                 }, 500)
                 setTimeout(() => {
                   this.$router.push({name: 'List'})
                 }, 1500)
               }
-              else
-              {
+              else if(response.data.res == '6') {
+                this.showDialog = true
+                this.submitError = true
+                this.info = '提交失败!已到截止时间'
+                setTimeout(() => {
+                  this.showDialog = false
+                }, 500)
+                setTimeout(() => {
+                  this.$router.push({name: 'List'})
+                }, 1500)
+              }
+              else {
                 this.showDialog = true
                 this.submitError = true
                 this.info = '提交失败!'
-              }
-              
+              } 
             })
-            
-            
-          } else {
+          } 
+          else {
             this.showDialog = true
             this.submitError = true
             this.info = '提交失败! 存在必填项未填'
           }
-        } else {
+        } 
+        else {
           this.showDialog = true
           this.submitError = true
           this.info = '提交失败! 只有发布中的问卷才能提交'
@@ -266,9 +246,7 @@ import userstorage from '../userstore.js'
       },
       validate() {
         for (let i in this.requiredItem) {
-          if (this.requiredItem[i].length === 0 && this.qsItem.question[i-1].isNeed == true) 
-          {
-            
+          if (this.requiredItem[i].length === 0 && this.qsItem.question[i-1].isNeed == true) {
             return false
           }
         }
@@ -282,5 +260,5 @@ import userstorage from '../userstore.js'
 </script>
 
 <style lang="scss" scoped>
-@import '../style/Fill'
+@import '../style/Fill';
 </style>

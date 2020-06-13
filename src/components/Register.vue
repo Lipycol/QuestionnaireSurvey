@@ -43,7 +43,8 @@ import pagestorage from '../pagestore.js'
       var validatePass = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入密码'));
-        } else {
+        } 
+        else {
           if (this.ruleForm.checkPass !== '') {
             this.$refs.ruleForm.validateField('checkPass');
           }
@@ -53,14 +54,15 @@ import pagestorage from '../pagestore.js'
       var validatePass2 = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请再次输入密码'));
-        } else if (value !== this.ruleForm.password) {
+        } 
+        else if (value !== this.ruleForm.password) {
           callback(new Error('两次输入密码不一致!'));
-        } else {
+        } 
+        else {
           callback();
         }
       };
       return {
-        logining: false,
         ruleForm: {
           account: '',
           name: '',
@@ -86,15 +88,11 @@ import pagestorage from '../pagestore.js'
     },
     methods: {
       userRegister() {
-        if (r1.value === '' || r2.value === '' || r3.value === '' || r4.value === '')
-        {      
+        if (r1.value === '' || r2.value === '' || r3.value === '' || r4.value === '') {      
           alert('请正确填写注册信息!!');
-          
         }
-        else
-        {
-          if (r3.value === r4.value)
-          {
+        else {
+          if (r3.value === r4.value) {
             this.$ajax({
               method: 'post',
               url: 'https://afhtvr.toutiao15.com/create_user',
@@ -104,34 +102,29 @@ import pagestorage from '../pagestore.js'
                 password: r3.value
               }
             }).then((response) =>{
-              if (response.data.message == "success")
-              {
+              if (response.data.message == "success") {
                 const loading = this.$loading({
-          lock: true,
-          text: 'Loading',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
-        });
-        setTimeout(() => {
-          loading.close();
-          userstorage.save({'uid': r1.value, 'name': r2.value, 'pass': r3.value})
-                pagestorage.save({'hallpage': 1, 'listpage': 1, 'binpage': 1})
-                this.$router.push({ name: 'List'})
-        }, 1200);
-                
+                  lock: true,
+                  text: 'Loading',
+                  spinner: 'el-icon-loading',
+                  background: 'rgba(0, 0, 0, 0.7)'
+                });
+                setTimeout(() => {
+                  loading.close();
+                  userstorage.save({'uid': r1.value, 'name': r2.value, 'pass': r3.value})
+                  pagestorage.save({'hallpage': 1, 'listpage': 1, 'binpage': 1})
+                  this.$router.push({ name: 'List'})
+                }, 1200); 
               }
-              else if (response.data.message == "exist")
-              {
+              else if (response.data.message == "exist") {
                 alert("当前账号已被使用，请重新注册新账号!!")
               }
-              else if (response.data.message == "fail")
-              {
+              else if (response.data.message == "fail"){
                 alert("注册失败!!")
               }
             })
           }
-          else
-          {
+          else {
             alert('两次输入密码不一致，请重新填写')
           }
         }

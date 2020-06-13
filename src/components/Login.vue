@@ -1,5 +1,4 @@
 <template>
-
   <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-position="left" label-width="0px" class="demo-ruleForm login-container">
     <h3 class="title">系统登录</h3>
     <el-form-item prop="account">
@@ -38,8 +37,6 @@ import pagestorage from '../pagestore.js'
         } 
       };
       return {
-        logining: false,
-        //users: null,
         ruleForm: {
           account: '',
           pass: ''
@@ -57,11 +54,10 @@ import pagestorage from '../pagestore.js'
     },
     methods: {
       userLogin() {
-        if (r1.value === '' || r2.value === '')
-        {
+        if (r1.value === '' || r2.value === '') {
           alert("请正确填写登录信息!!")
         }
-        else{
+        else {
           this.$ajax({
             method: 'post',
             url: 'https://afhtvr.toutiao15.com/user_login',
@@ -70,23 +66,21 @@ import pagestorage from '../pagestore.js'
               password: r2.value
             }
           }).then((response) =>{
-            if (response.data.message == "success")
-            {
+            if (response.data.message == "success") {
               const loading = this.$loading({
-          lock: true,
-          text: 'Loading',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
-        });
-        setTimeout(() => {
-          loading.close();
-          userstorage.save({'uid': r1.value, 'name': response.data.object.user_Name, 'pass': r2.value});
-              pagestorage.save({'hallpage': 1, 'listpage': 1, 'binpage': 1});
-              this.$router.push({ path: '/List'});
-        }, 1200);
-              
+              lock: true,
+              text: 'Loading',
+              spinner: 'el-icon-loading',
+              background: 'rgba(0, 0, 0, 0.7)'
+              });
+              setTimeout(() => {
+                loading.close();
+                userstorage.save({'uid': r1.value, 'name': response.data.object.user_Name, 'pass': r2.value});
+                pagestorage.save({'hallpage': 1, 'listpage': 1, 'binpage': 1});
+                this.$router.push({ name: 'List'});
+              }, 1200);  
             }
-            else{
+            else {
               alert("输入账号或密码有误!!")
             }
           })          
@@ -107,11 +101,9 @@ import pagestorage from '../pagestore.js'
           pagestorage.save({'hallpage': 1, 'listpage': 1, 'binpage': 1})
         this.$router.push({ name: 'Hall' })
         }, 1200);
-        
       }
     }
   }
-
 </script>
 
 <style lang="scss">

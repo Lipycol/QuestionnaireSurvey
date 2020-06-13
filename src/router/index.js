@@ -1,6 +1,5 @@
 import Register from '../components/Register'
 import Login from '../components/Login'
-import New from '../components/New'
 import Edit from '../components/Edit'
 import List from '../components/List'
 import Check from '../components/Check'
@@ -21,12 +20,6 @@ let routes = [
         path: '/Register',
         name: 'Register',
         component: Register,
-        hidden: true
-    },
-    {
-        path: '/New',
-        name: 'New',
-        component: New,
         hidden: true
     },
     {
